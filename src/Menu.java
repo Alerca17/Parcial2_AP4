@@ -15,7 +15,8 @@ public class Menu {
                 2).Metodo Insercion
                 3).Metodo QuickSort
                 4).Metodo HeapSort
-                5).Salir
+                5).Metodo Insercion Con Vectores
+                6).Salir
                 """, "Menu Metodos", JOptionPane.INFORMATION_MESSAGE));
 
         switch (opc) {
@@ -40,6 +41,11 @@ public class Menu {
                 break;
 
             case 5:
+                menuMetodoInsercionVectores();
+                menuPrincipal();
+                break;
+
+            case 6:
                 System.exit(0);
                 break;
 
@@ -55,8 +61,8 @@ public class Menu {
                 Ingresa La Cantidad
                 """, "Menu Burbuja", JOptionPane.INFORMATION_MESSAGE));
 
-        ordenamiento.llenarArrayList(cantidad, arrayList);
         long inicio = System.nanoTime();
+        ordenamiento.llenarArrayList(cantidad, arrayList);
         ordenamiento.metodoBurbuja(cantidad, arrayList);
         long fin = System.nanoTime();
         ordenamiento.mostrarArrayList(arrayList, inicio, fin);
@@ -69,8 +75,8 @@ public class Menu {
                 Ingresa La Cantidad
                 """, "Menu Insercion", JOptionPane.INFORMATION_MESSAGE));
 
-        ordenamiento.llenarArrayList(cantidad, arrayList);
         long inicio = System.nanoTime();
+        ordenamiento.llenarArrayList(cantidad, arrayList);
         ordenamiento.metodoInsercion(cantidad, arrayList);
         long fin = System.nanoTime();
         ordenamiento.mostrarArrayList(arrayList, inicio, fin);
@@ -83,8 +89,8 @@ public class Menu {
                 Ingresa La Cantidad
                 """, "Menu QuickSort", JOptionPane.INFORMATION_MESSAGE));
 
-        ordenamiento.llenarArrayList(cantidad, arrayList);
         long inicio = System.nanoTime();
+        ordenamiento.llenarArrayList(cantidad, arrayList);
         ordenamiento.metodoQuickSort(arrayList, 0, arrayList.size() - 1);
         long fin = System.nanoTime();
         ordenamiento.mostrarArrayList(arrayList, inicio, fin);
@@ -97,11 +103,25 @@ public class Menu {
                 Ingresa La Cantidad
                 """, "Menu HeapSort", JOptionPane.INFORMATION_MESSAGE));
 
-        ordenamiento.llenarArrayList(cantidad, arrayList);
         long inicio = System.nanoTime();
+        ordenamiento.llenarArrayList(cantidad, arrayList);
         ordenamiento.metodoHeapSort(arrayList);
         long fin = System.nanoTime();
         ordenamiento.mostrarArrayList(arrayList, inicio, fin);
         arrayList.clear();
+    }
+
+    public void menuMetodoInsercionVectores(){
+
+        int cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, """
+                Ingresa La Cantidad
+                """, "Menu Insercion Con Vector", JOptionPane.INFORMATION_MESSAGE));
+
+        int[] numeros = new int[cantidad];
+        long inicio = System.nanoTime();
+        ordenamiento.llenarVector(cantidad,numeros);
+        ordenamiento.metodoInsercionVectores(numeros);
+        long fin = System.nanoTime();
+        ordenamiento.mostrarVector(numeros, inicio, fin);
     }
 }

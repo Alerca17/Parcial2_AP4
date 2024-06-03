@@ -5,6 +5,8 @@ import java.util.Random;
 
 public class GestionOrdenamiento {
 
+    Random numeroAleatorio = new Random();
+
     public void metodoBurbuja(int tope, ArrayList<Integer> arrayBurbuja) {
 
         for (int i = 0; i < tope - 1; i++) {
@@ -23,14 +25,65 @@ public class GestionOrdenamiento {
 
         StringBuilder numeros = new StringBuilder();
 
+        long tiempo = fin - inicio;
+        long segundos = tiempo / 1000000000;
+        long microsegundos = (tiempo / 1_000) % 1_000;
+        long milisegundos = (tiempo % 1000000000) / 1000000;
+
         for (int i : arrayBurbuja) {
 
-            numeros.append(i + " ");
-
+            numeros.append(i).append(" ");
         }
 
-        numeros.append("\n").append("Tiempo De Ejecucion: \n " + "NanoSegundos: " + (fin - inicio) + "\n" + " Segundos: " + (fin - inicio) / 1000000000 + "\n");
+        numeros.append("\n")
+                .append("Tiempo De Ejecucion: \n")
+                .append("NanoSegundos: ").append(tiempo).append("\n")
+                .append("Segundos: ").append(segundos).append("\n")
+                .append("Milisegundos: ").append(milisegundos).append("\n")
+                .append("Microsegundos: ").append(microsegundos).append("\n");
+
         JOptionPane.showMessageDialog(null, numeros.toString());
+    }
+
+    public void mostrarVector(int[] vector, long inicio, long fin) {
+
+        StringBuilder numeros = new StringBuilder();
+
+        long tiempo = fin - inicio;
+        long segundos = tiempo / 1000000000;
+        long microsegundos = (tiempo / 1_000) % 1_000;
+        long milisegundos = (tiempo % 1000000000) / 1000000;
+
+        for (int i = 0; i < vector.length; i++) {
+
+            numeros.append(vector[i]).append(" ");
+        }
+
+        numeros.append("\n")
+                .append("Tiempo De Ejecucion: \n")
+                .append("NanoSegundos: ").append(tiempo).append("\n")
+                .append("Segundos: ").append(segundos).append("\n")
+                .append("Milisegundos: ").append(milisegundos).append("\n")
+                .append("Microsegundos: ").append(microsegundos).append("\n");
+
+        JOptionPane.showMessageDialog(null, numeros.toString());
+    }
+
+    public void metodoInsercionVectores(int[] numeros) {
+
+        for (int i = 1; i < numeros.length; ++i) {
+
+            int clave = numeros[i];
+            int j = i - 1;
+
+            while (j >= 0 && numeros[j] > clave) {
+
+                numeros[j + 1] = numeros[j];
+                j = j - 1;
+            }
+
+            numeros[j + 1] = clave;
+        }
     }
 
     public void metodoInsercion(int tope, ArrayList<Integer> arrayInsercion) {
@@ -51,8 +104,6 @@ public class GestionOrdenamiento {
 
     public void llenarArrayList(int tope, ArrayList<Integer> array) {
 
-        Random numeroAleatorio = new Random();
-
         for (int i = 0; i < tope; i++) {
 
             int numero;
@@ -67,6 +118,25 @@ public class GestionOrdenamiento {
         }
     }
 
+    public void llenarVector(int tope, int[] numeros) {
+
+        boolean[] numeroUsado = new boolean[tope];
+
+        for (int i = 0; i < numeros.length; i++) {
+
+            int numero;
+
+            do {
+
+                numero = numeroAleatorio.nextInt(tope) + 1;
+
+            } while (numeroUsado[numero - 1]);
+
+            numeros[i] = numero;
+            numeroUsado[numero - 1] = true;
+        }
+    }
+
     public void metodoQuickSort(ArrayList<Integer> arrayQuickSort, int inicio, int fin) {
 
         if (inicio < fin) {
@@ -77,7 +147,7 @@ public class GestionOrdenamiento {
         }
     }
 
-    private static int particion(ArrayList<Integer> arrayQuickSort, int inicio, int fin) {
+    private int particion(ArrayList<Integer> arrayQuickSort, int inicio, int fin) {
 
         int pivote = arrayQuickSort.get(fin);
         int i = inicio - 1;
@@ -87,15 +157,17 @@ public class GestionOrdenamiento {
             if (arrayQuickSort.get(j) <= pivote) {
 
                 i++;
-                int temp = arrayQuickSort.get(i);
+                int temporal = arrayQuickSort.get(i);
+
                 arrayQuickSort.set(i, arrayQuickSort.get(j));
-                arrayQuickSort.set(j, temp);
+                arrayQuickSort.set(j, temporal);
             }
         }
 
-        int temp = arrayQuickSort.get(i + 1);
+        int temporal = arrayQuickSort.get(i + 1);
+
         arrayQuickSort.set(i + 1, arrayQuickSort.get(fin));
-        arrayQuickSort.set(fin, temp);
+        arrayQuickSort.set(fin, temporal);
 
         return i + 1;
     }
@@ -105,41 +177,43 @@ public class GestionOrdenamiento {
         int n = arrayHeapSort.size();
 
         for (int i = n / 2 - 1; i >= 0; i--) {
-            heapify(arrayHeapSort, n, i);
+
+            ajustar(arrayHeapSort, n, i);
         }
 
         for (int i = n - 1; i > 0; i--) {
 
-            int temp = arrayHeapSort.get(0);
+            int temporal = arrayHeapSort.get(0);
+
             arrayHeapSort.set(0, arrayHeapSort.get(i));
-            arrayHeapSort.set(i, temp);
-            heapify(arrayHeapSort, i, 0);
+            arrayHeapSort.set(i, temporal);
+            ajustar(arrayHeapSort, i, 0);
         }
     }
 
-    private static void heapify(ArrayList<Integer> arrayList, int n, int i) {
+    private void ajustar(ArrayList<Integer> arrayList, int n, int i) {
 
-        int largest = i;
-        int left = 2 * i + 1;
-        int right = 2 * i + 2;
+        int mayor = i;
+        int izquierda = 2 * i + 1;
+        int derecha = 2 * i + 2;
 
-        if (left < n && arrayList.get(left) > arrayList.get(largest)) {
+        if (izquierda < n && arrayList.get(izquierda) > arrayList.get(mayor)) {
 
-            largest = left;
+            mayor = izquierda;
         }
 
-        if (right < n && arrayList.get(right) > arrayList.get(largest)) {
+        if (derecha < n && arrayList.get(derecha) > arrayList.get(mayor)) {
 
-            largest = right;
+            mayor = derecha;
         }
 
-        if (largest != i) {
+        if (mayor != i) {
 
-            int swap = arrayList.get(i);
-            arrayList.set(i, arrayList.get(largest));
-            arrayList.set(largest, swap);
+            int cambio = arrayList.get(i);
 
-            heapify(arrayList, n, largest);
+            arrayList.set(i, arrayList.get(mayor));
+            arrayList.set(mayor, cambio);
+            ajustar(arrayList, n, mayor);
         }
     }
 }
