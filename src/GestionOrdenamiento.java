@@ -27,8 +27,6 @@ public class GestionOrdenamiento {
 
         long tiempo = fin - inicio;
         long segundos = tiempo / 1000000000;
-        long microsegundos = (tiempo / 1_000) % 1_000;
-        long milisegundos = (tiempo % 1000000000) / 1000000;
 
         for (int i : arrayBurbuja) {
 
@@ -38,9 +36,7 @@ public class GestionOrdenamiento {
         numeros.append("\n")
                 .append("Tiempo De Ejecucion: \n")
                 .append("NanoSegundos: ").append(tiempo).append("\n")
-                .append("Segundos: ").append(segundos).append("\n")
-                .append("Milisegundos: ").append(milisegundos).append("\n")
-                .append("Microsegundos: ").append(microsegundos).append("\n");
+                .append("Segundos: ").append(segundos).append("\n");
 
         JOptionPane.showMessageDialog(null, numeros.toString());
     }
@@ -51,8 +47,6 @@ public class GestionOrdenamiento {
 
         long tiempo = fin - inicio;
         long segundos = tiempo / 1000000000;
-        long microsegundos = (tiempo / 1_000) % 1_000;
-        long milisegundos = (tiempo % 1000000000) / 1000000;
 
         for (int i = 0; i < vector.length; i++) {
 
@@ -62,9 +56,7 @@ public class GestionOrdenamiento {
         numeros.append("\n")
                 .append("Tiempo De Ejecucion: \n")
                 .append("NanoSegundos: ").append(tiempo).append("\n")
-                .append("Segundos: ").append(segundos).append("\n")
-                .append("Milisegundos: ").append(milisegundos).append("\n")
-                .append("Microsegundos: ").append(microsegundos).append("\n");
+                .append("Segundos: ").append(segundos).append("\n");
 
         JOptionPane.showMessageDialog(null, numeros.toString());
     }
